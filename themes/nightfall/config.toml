@@ -1,4 +1,3 @@
-baseURL = 'http://gohugo.io/'
 languageCode = 'en-us'
 
 [menu]
@@ -13,28 +12,23 @@ languageCode = 'en-us'
 
 [params]
 author = "Hugo Nightfall"
-user = "hello"
-hostname = "gohugo.io"
+user = "Cloudham"
+hostname = "https://github.com/Cloud-Ham/cloud-ham.github.io"
 
-readingTime = true  # Show reading time on post page
+readingTime = false  # Show reading time on post page
 published = true  # Show published data on post page
 
 [[params.social]]
 key = 0
 name = "github"
-url = "https://github.com/gohugoio"
+url = "https://github.com/Cloud-Ham"
 
 [[params.social]]
 key = 1
 name = "twitter"
-url = "https://www.example.com"
+url = "https://twitter.com/cloud_ham"
 
 [[params.social]]
 key = 2
-name = "linkedin"
-url = "https://www.example.com"
-
-[[params.social]]
-key = 3
 name = "email"
-url = "mailto:email@example.com"
+url = "mailto:CloudHam001@gmail.com"
