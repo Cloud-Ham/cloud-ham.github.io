@@ -2,3 +2,8 @@ baseURL = 'http://127.0.0.1'
 languageCode = 'en-us'
 title = 'My New Hugo Site'
 theme = "nightfall"
+[markup]
+   [markup.tableOfContents]
+      endLevel = 3
+      ordered = false
+      startLevel = 1 

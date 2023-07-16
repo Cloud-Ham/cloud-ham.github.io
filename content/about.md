@@ -1,25 +1,22 @@
 +++
 title = "About"
-description = "Hugo, the world's fastest framework for building websites"
-date = "2019-02-28"
-aliases = ["about-us", "about-hugo", "contact"]
-author = "Hugo Authors"
+description = "Welcome to the CloudHam blog"
+date = "2023-07-05"
+aliases = ["about"]
+author = "CloudHam"
 +++
 
-Written in Go, Hugo is an open source static site generator available under the [Apache Licence 2.0.](https://github.com/gohugoio/hugo/blob/master/LICENSE) Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
+Hello, and welcome to my blog site. This is a static site hosted in GitHub pages, so as far as the privacy policy, I am not collecting any of your information. GitHub may log details about your site visit.
 
-Hugo makes use of a variety of open source projects including:
+I work as a SOC Lead and have been in Cybersecurity for 5 years. Previously I worked at an MSP developing a customer-facing MSSP solution, and currently I am working in a company's internal SOC. Prior to these I held various support roles. My active certifications are (As of 7/1/23):
 
-* https://github.com/yuin/goldmark
-* https://github.com/alecthomas/chroma
-* https://github.com/muesli/smartcrop
-* https://github.com/spf13/cobra
-* https://github.com/spf13/viper
+* CompTIA: A+, Network+, Security+, Linux+, CySA+, Pentest+, CASP+
+* Microsoft: Azure Administrator Associate, Azure Security Engineer Associate, Microsoft Identity and Access Administrator
+* Google: Google Cloud Associate Cloud Engineer, Google Cloud Security Engineer
+* AWS: Certified Cloud Practicioner
+* GIAC: GCIA, GOSI, GPCS, GCSA
 
-Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.
+This blog has a couple of purposes:
 
-Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.
-
-Websites built with Hugo are extremely fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.
-
-Learn more and contribute on [GitHub](https://github.com/gohugoio).
+* Record learning efforts on off-time. Most of these will have the designation "LAB -" to indicate that they're not present for a whole lot other than to record my efforts learning and tinkering with tings.
+* Informative. Somewhere between sharing knowledge of tools, applications, or systems, and providing some insight based upon what I've witnessed in the industry.

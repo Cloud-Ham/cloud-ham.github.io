@@ -9,12 +9,11 @@
     <item>
       <title>About</title>
       <link>http://127.0.0.1/about/</link>
-      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
       
       <guid>http://127.0.0.1/about/</guid>
-      <description>Written in Go, Hugo is an open source static site generator available under the Apache Licence 2.0. Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
-Hugo makes use of a variety of open source projects including:
-https://github.com/yuin/goldmark https://github.</description>
+      <description>Hello, and welcome to my blog site. This is a static site hosted in GitHub pages, so as far as the privacy policy, I am not collecting any of your information. GitHub may log details about your site visit.
+I work as a SOC Lead and have been in Cybersecurity for 5 years. Previously I worked at an MSP developing a customer-facing MSSP solution, and currently I am working in a company&amp;rsquo;s internal SOC.</description>
     </item>
     
   </channel>
