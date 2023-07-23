@@ -1,7 +1,7 @@
 ---
 title: "Competing for a Cybersecurity Role"
-date: 2023-07-05T17:13:05Z
-draft: true
+date: 2023-07-20T17:13:05Z
+draft: false
 ---
 # Introduction
 

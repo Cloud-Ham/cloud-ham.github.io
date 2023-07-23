@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <title>
+Competing for a Cybersecurity Role | Hugo Nightfall
+</title>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="generator" content="Hugo 0.115.4">
+
+
+<link rel="canonical" href="http://127.0.0.1/posts/competing-for-a-soc-role/" >
+<link href="/sass/main.min.a8be33730f01e46b6e968a84ed6b211a9d1286d34f7e143c012da9c14cd56400.css" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+    <div class="flexWrapper">
+        <header class="headerWrapper">
+    <div class="header">
+        <div>
+            <a href="http://127.0.0.1">
+                <span class="terminal">Cloudham@https://github.com/Cloud-Ham/cloud-ham.github.io ~ $</span>
+            </a>
+        </div>
+        <input class="side-menu" type="checkbox" id="side-menu"/>
+        <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+        <nav class="headerLinks">
+            <ul>
+                
+                <li>
+                    <a href="http://127.0.0.1/about" title="" >
+                        ~/about</a>
+                </li>
+                
+                <li>
+                    <a href="http://127.0.0.1/blog" title="" >
+                        ~/blog</a>
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+        <div class="content">
+            <main class="main">
+                
+<div class="postWrapper">
+    <h1>Competing for a Cybersecurity Role</h1>
+    
+    <section class="postMetadata">
+        <dl>
+            
+            
+            
+            
+                <dt>published</dt>
+                
+                <dd><time datetime="2023-07-20">July 20, 2023</time></dd>
+            
+            
+        </dl>
+    </section>
+    
+    <div>
+        <h1 id="introduction">Introduction</h1>
+<p>I spend a good amount of time in discords where people ask about what it takes to join a SOC, I figured it might be best to just write out all of my recommendations in one big post and ship it over. These recommendations are based on my experience between the two companies I&rsquo;ve worked for in SOCs, and some of the ones I&rsquo;ve done some light consulting for.</p>
+<h1 id="getting-into-cybersecurity">Getting into Cybersecurity</h1>
+<p>One of the most common misconceptions out there is that because there are people needed in Cybersecurity, that hitting the bare essentials of requirements is enough to transition to a Cybersecurity role. And often, people consider that it could be their first IT job. This is possible, but unlikely for a couple of reasons:</p>
+<ul>
+<li>Cybersecurity is a very wide field with various sub-functions that you might be interested in. A SOC role tends to be a common starting point, but it doesn&rsquo;t have to be.
+<ul>
+<li>A SOC would expect you to know common terminology (IoC, MITRE ATT&amp;CK, PCAP, AV/EDR, IDPS) and common SOC functions (SIEM/SOAR use, PCAP analysis, Malware analysis, threat hunting).</li>
+<li>Application Security would be focused more on strengthening applications by limiting attack surfaces (containerization, converting IaaS to PaaS) and hardening the attack surface (Vulnerability management, security policies).</li>
+<li>Forensics would be more specialized in using proper tooling to build evidence and perserve the environment (Write-blocking tools, KAPE).</li>
+</ul>
+</li>
+</ul>
+<p>But the commonality between all of these is that to understand the Cybersecurity aspect (How do we defend/analyze this?), you have to understand what is operationally normal. An application that generates and provides overly-permissive and non-restricted SAS tokens at a very frequent basis to other applications could be totally normal for its use, as insecure as that might be. Or a website may write to the Apache log that each request was a 200 OK, even though the site directed them to a 404 page.</p>
+<p>To secure, or to detect, a system or an event, is to know what is operationally normal. This is very hard to do in a homelab, and why most employers look for some previous IT experience before putting you in a Cybersecurity role.</p>
+<h1 id="competition-for-the-role">Competition for the Role</h1>
+<p>Now that we&rsquo;ve cleared the basics, it&rsquo;s important to stress what happens when you apply. You update your resume, you walk through the company&rsquo;s hiring portal and fill in the fields. What happens now?</p>
+<p>For starters, there <em>are</em> some systems in use that discard resumes that don&rsquo;t match certain criteria. I wouldn&rsquo;t be overly pessimistic about this happening as often as you may think, as with the wide scope of technology &amp; systems, it&rsquo;d be hard to account for when you wouldn&rsquo;t be a good candidate based off of keyword matching. For example, if you were hiring for a SOC Analyst with experience with KQL for Sentinel, you might search Sentinel on the resume. However, QRadar Suite (What used to be Cloudpak) can also run KQL queries federated to Azure. The analyst may not put Sentinel in their resume but still have familiarity with the language.</p>
+<p>Ok, so after you make it past any possible resume dropping function, you are now in the resume list. If you are coming in without a referral, you lose some priority in this. In every instance I&rsquo;ve witnessed, a referral is guaranteed an interview. More on this in the section &ldquo;Boosting your Chances&rdquo;.</p>
+<p>So now you&rsquo;re in the Battle Royale for the interview. If you are at the minimum requirements for the posting, your chances aren&rsquo;t great. But that shouldn&rsquo;t discourage you, apply anyways! You never know what could happen. You don&rsquo;t know what the employer has to review. But if you&rsquo;re applying for a remote role, your competition is most likely gigantic. They&rsquo;re some of the most desirable roles you can get.</p>
+<h1 id="boosting-your-chances">Boosting your Chances</h1>
+<p>Your resume is in the great pool of candidates. What can you do for yourself?</p>
+<h2 id="get-a-referral">Get a Referral</h2>
+<p>Mentioned above, this is huge. This tends to bypass a lot of requirements in getting a job (almost) anywhere. If the company trusts the employee submitting the referral and are on good terms, you&rsquo;re on track for at least an interview.</p>
+<p>Where can you get a referral?</p>
+<ul>
+<li>Go to a Cybersecurity Conference and meet people. People from all kinds of security roles from all kinds of companies will be there. Talk with them! Ask them what they think of their current job, and what might be required to get in. See what the options are. Some vendors may also be there specifically to recruit. Talk with them!</li>
+<li>Check with friends and family. This might seem basic, but I&rsquo;ve had a decent number of people ask about how to get in somewhere, and later mention that they&rsquo;ve got relatives in a company they&rsquo;d be interested in working at.</li>
+<li>Look for job postings on Linkedin, specifically on your wall. Once you build out your professional network on LinkedIn, you should start seeing people promote positions on your home feed. Reach out to the person who posted it to see if you can get more detail or schedule a 30-minute chat. You may not get a referral out of this, but you will at least get some credit for being a self-starter.</li>
+<li>Go to a local game session. My recommendations are: Dungeons and Dragons sessions, Card game tournaments, or video game tournaments. Most of us in IT are nerdy and will be present.</li>
+</ul>
+<h2 id="experience">Experience</h2>
+<p>You typically <em>need</em> experience in a prior company to have the type of experience that a company ma be looking for, but you can still drive your own experience and show your willingness to learn.</p>
+<p>My main suggestion here, until you get a role where you can develop professional experience in a subject, is to build a project site. Some ideas:</p>
+<ul>
+<li>Start a GitHub account. Work on projects, place it in a repository, make it public. Put your GitHub link on your resume. Or Gitlab, whatever works.</li>
+<li>Start a personal/tech blog. Document your work. What did you learn? What did you practice with?</li>
+</ul>
+<p>I personally LOVE reading your projects on the resume, and I feel like it really highlights your efforts better than bullet-points on job descriptions.</p>
+<h2 id="certs-and-degrees">Certs and Degrees</h2>
+<p>I see the question of &ldquo;Should I focus on a degree or certs?&rdquo; quite often, and the answer is always: &ldquo;Don&rsquo;t consider this the battle between the two. Consider both as qualifications.&rdquo; And even with that, experience is king. Real-world experience on systems and technology will almost always beat out the value of a certification or degree.</p>
+<p>The biggest strength I see from a college degree is that you&rsquo;re a well-rounded, learned person. You have some writing skills, some math skills, and you were determined to make it through the schooling. Even if your degree isn&rsquo;t IT or directly Cybersecurity related, I&rsquo;d give a fair amount of credit to it.</p>
+<p>My issue with a college degree is that I don&rsquo;t really know what you learned. A Cybersecurity-focused degree between two different colleges fields two different results.</p>
+<p>The biggest strength I see from certifications is the opposite of a degree. You didn&rsquo;t take classes on writing, math, or science here, but I can read the objectives list for the exam and be familiar with what you know about. And sometimes that translates directly into job functions. If we use Azure PIM on a daily basis and you have the Azure Security Engineer cert, I have a strong feeling you will know what to do when you need to claim a privileged Azure role.</p>
+<p>Also with all of this said, it&rsquo;s worth noting that I do not have a degree and do not require any candidates I interview to have one. Or even certs. It&rsquo;s about putting together all of the applicant&rsquo;s capabilities between Experience &amp; Qualifications.</p>
+<h2 id="sharpen-and-focus-your-resume">Sharpen and Focus your Resume</h2>
+<p>At where I currently work, the process is that our recruiter will send over a big batch of resumes and applicants to my manager. My manager will do the initial filtering, dropping people who are too green or too new to the field. He&rsquo;ll send me a shorter list and then I&rsquo;ll review and potentially request for some of them to be dropped as well.</p>
+<p>Here are some reasons that the resume may get dropped, and although some of these may sound really picky, we&rsquo;re going through hundreds of them pretty often:</p>
+<ul>
+<li>Resume composition. A core component to our job is effective writing; short, clear and concise. If your resume is 5 pages long (For a non-government job), full of typos, broken formatting, it becomes grating to read. Aim for 1-2 pages, run spell check, and have some peers review with you. If you send me a copy of your resume, I will do my best to provide feedback as well.</li>
+<li>The resume has us asking a LOT of questions. You should hand your resume to a peer and ask them, &ldquo;Do you know what I did at this company?&rdquo; A lot of them talk about accomplishments but not the work or project asssociated with completing them. If you saved the company $20,000 in a project, that&rsquo;s good, but what was the project? Or if you list every programming language known to man in your &ldquo;Skills&rdquo; section and there&rsquo;s nothing that describes you ever using any of them, the resume doesn&rsquo;t tell us what you actually know or do.</li>
+<li>You aren&rsquo;t familiar with the topics on your resume. This has happened at least 4-5 times in my time with the current company. It makes you look like you&rsquo;re spamming words to bypass potential keyword filters when applying. Even if you had the best intent, please make sure you are ready to speak to points on your resume. You will most likely fail the interview otherwise.</li>
+</ul>
+<h2 id="volunteer-work">Volunteer Work</h2>
+<p>While this won&rsquo;t remove your need to have experience or qualifications, it is a boost to your resume. It tends to show a couple of key values of the human relationship: compassion, understanding, sympathy &amp; empathy, and personal bonds. If you spend your time working with your community or participating in charity events, put that on your resume somewhere.</p>
+<p>People underestimate the human bond &amp; relationship needed in the field. No one wants to work with someone who is constantly detached, robotic, unkind, or disinterested. When you truly have a love for the human connection <strong>and</strong> the work required of the job, you will succeed the most.</p>
+<h1 id="what-certs-should-i-get">What certs should I get?</h1>
+<p>This comes up a lot, and while certs aren&rsquo;t the only distinguishing factor to your skillset, it&rsquo;s probably worth just going over a handful. And these aren&rsquo;t necessarily recommendations for everyone. Consider what you&rsquo;re most interested in and pursue those.</p>
+<ul>
+<li>CompTIA Network+: Networking will follow you everywhere in IT, regardless of role. Whether you&rsquo;re a sysadmin, DBA, AppDev, SOC Analyst, Security engineer, Helpdesk analyst, etc. you will need understanding of networking.</li>
+<li>CompTIA Security+: Almost a pre-requisite at this point. It&rsquo;s very uncommon to get a SOC position with just this, but at Derbycon one year, there was a recruiter looking for people who met this requirement only.</li>
+<li>CompTIA CySA+: An extension of Security+. Easy enough to run through the material after Security+, but may not return much value.</li>
+<li>CompTIA Pentest+: My personal favorite to take. CEH and OSCP still kind of domiante the pentest cert area, but this was a lot of fun to take.</li>
+<li>CEH/OSCP: Including both of these in one as I haven&rsquo;t taken either of them, but they&rsquo;re commonly on pentest/red-team oriented job postings. Do some research to see if the roles you&rsquo;re interested in are looking for either of these.</li>
+<li>Cloud Certifications: Almost every company is using one or more public cloud providers. And each public cloud provider has their own certification path. For my last two companies, cloud experience has been a <em>must</em>.</li>
+</ul>
+<h1 id="no-response-from-the-employer">No Response from the Employer</h1>
+<p>After you submit your application &amp; resume, if things go quiet, I cannot stress this enough&hellip;</p>
+<p><strong>Do NOT let it discourage you.</strong></p>
+<p>There are a multitude of reasons why, at the company, they decided to pass on you and you will almost never know the answer. A couple of examples I&rsquo;ve seen or heard from others in the industry:</p>
+<ul>
+<li>Department cutbacks occur during a hiring wave. Hiring for the spot is closed after opening.</li>
+<li>Internal politics leads to another internal candidate getting the spot.</li>
+<li>A referral came in from internal to the company, and the referred person gets the spot.</li>
+<li>There was another, more aligned candidate for the business needs.</li>
+</ul>
+<p>Personally, I&rsquo;ve had several situations where I&rsquo;ve been either declined within 24 hours of applying, or ghosted after several communications. And funny enough the last time this happened, I ended up finding a better job than any of the other companies that I spoke with.</p>
+<p>I want to reach back to that last point. It&rsquo;s not always what candidate is &ldquo;more skilled&rdquo; or &ldquo;more experienced&rdquo;. A company may require experience exclusively with IBM QRadar products, and might turn down a SOC analyst of 30 years who has never used QRadar, for someone who&rsquo;s been an analyst for 4 years and is familiar with the entire QRadar suite. It&rsquo;s completely possible that you are skilled enough for a position, but it does not align with what the company wants.</p>
+
+    </div>
+</div>
+
+            </main>
+        </div>
+
+
+        <footer class="footer">
+    
+        <span>
+            © 2023 Hugo Nightfall, Built with
+            <a href="https://gohugo.io" class="footerLink">Hugo</a> and
+            <a href="https://github.com/LordMathis/hugo-theme-nightfall" class="footerLink">Nightfall</a> theme
+        </span>
+    
+</footer>
+    </div>
+
+</body>
+
+</html>

@@ -5,7 +5,17 @@
     <link>http://127.0.0.1/</link>
     <description>Recent content on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://127.0.0.1/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Thu, 20 Jul 2023 17:13:05 +0000</lastBuildDate><atom:link href="http://127.0.0.1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Competing for a Cybersecurity Role</title>
+      <link>http://127.0.0.1/posts/competing-for-a-soc-role/</link>
+      <pubDate>Thu, 20 Jul 2023 17:13:05 +0000</pubDate>
+      
+      <guid>http://127.0.0.1/posts/competing-for-a-soc-role/</guid>
+      <description>Introduction I spend a good amount of time in discords where people ask about what it takes to join a SOC, I figured it might be best to just write out all of my recommendations in one big post and ship it over. These recommendations are based on my experience between the two companies I&amp;rsquo;ve worked for in SOCs, and some of the ones I&amp;rsquo;ve done some light consulting for.</description>
+    </item>
+    
     <item>
       <title>About</title>
       <link>http://127.0.0.1/about/</link>
