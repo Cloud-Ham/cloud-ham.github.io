@@ -1,7 +1,7 @@
 ---
 title: "LAB Unit 42 March 2023 Quiz Walkthrough"
 date: 2023-07-23T18:20:15Z
-draft: true
+draft: false
 ---
 # Introduction
 
@@ -46,7 +46,7 @@ Be cautious with a filter that disallows important keywords from the display res
 
 So this is where we're currently at.
 
-[Unit42-Mar2023-PCAP-P1.png]
+{{ $image := resources.Get "images/Unit42-Mar2023-PCAP-P1.png" }}
 
 The initial domains of interest here are:
 
