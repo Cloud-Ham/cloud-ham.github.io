@@ -46,7 +46,7 @@ Be cautious with a filter that disallows important keywords from the display res
 
 So this is where we're currently at.
 
-[<img src="../Unit42-Mar2023/Unit42-Mar2023-PCAP-P1.png" width="766"/>](../Unit42-Mar2023/Unit42-Mar2023-PCAP-P1.png)
+![Resize](../Unit42-Mar2023/Unit42-Mar2023-PCAP-P1.png?wigth=766px)
 
 
 The initial domains of interest here are:
