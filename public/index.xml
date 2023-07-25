@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>My New Hugo Site</title>
-    <link>https://blog.cloud-ham.com/</link>
+    <link>blog.cloudham.com/</link>
     <description>Recent content on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 20 Jul 2023 17:13:05 +0000</lastBuildDate><atom:link href="https://blog.cloud-ham.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Jul 2023 17:13:05 +0000</lastBuildDate><atom:link href="blog.cloudham.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Competing for a Cybersecurity Role</title>
-      <link>https://blog.cloud-ham.com/posts/competing-for-a-cybersecurity-role/</link>
+      <link>blog.cloudham.com/posts/competing-for-a-cybersecurity-role/</link>
       <pubDate>Thu, 20 Jul 2023 17:13:05 +0000</pubDate>
       
-      <guid>https://blog.cloud-ham.com/posts/competing-for-a-cybersecurity-role/</guid>
+      <guid>blog.cloudham.com/posts/competing-for-a-cybersecurity-role/</guid>
       <description>Introduction Getting into Cybersecurity Competition for the Role Boosting your Chances Get a Referral Experience Certs and Degrees Sharpen and Focus your Resume Volunteer Work What certs should I get? No Response from the Employer Introduction I spend a good amount of time in discords where people ask about what it takes to join a SOC, I figured it might be best to just write out all of my recommendations in one big post and ship it over.</description>
     </item>
     
     <item>
       <title>About</title>
-      <link>https://blog.cloud-ham.com/about/</link>
+      <link>blog.cloudham.com/about/</link>
       <pubDate>Wed, 05 Jul 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.cloud-ham.com/about/</guid>
+      <guid>blog.cloudham.com/about/</guid>
       <description>Hello, and welcome to my blog site. This is a static site hosted in GitHub pages, so as far as the privacy policy, I am not collecting any of your information. GitHub may log details about your site visit.
 I work as a SOC Lead and have been in Cybersecurity for 5 years. Previously I worked at an MSP developing a customer-facing MSSP solution, and currently I am working in a company&amp;rsquo;s internal SOC.</description>
     </item>
