@@ -3,6 +3,19 @@ title: "Competing for a Cybersecurity Role"
 date: 2023-07-20T17:13:05Z
 draft: false
 ---
+
+- [Introduction](#introduction)
+- [Getting into Cybersecurity](#getting-into-cybersecurity)
+- [Competition for the Role](#competition-for-the-role)
+- [Boosting your Chances](#boosting-your-chances)
+  * [Get a Referral](#get-a-referral)
+  * [Experience](#experience)
+  * [Certs and Degrees](#certs-and-degrees)
+  * [Sharpen and Focus your Resume](#sharpen-and-focus-your-resume)
+  * [Volunteer Work](#volunteer-work)
+- [What certs should I get?](#what-certs-should-i-get)
+- [No Response from the Employer](#no-response-from-the-employer)
+
 # Introduction
 
 I spend a good amount of time in discords where people ask about what it takes to join a SOC, I figured it might be best to just write out all of my recommendations in one big post and ship it over. These recommendations are based on my experience between the two companies I've worked for in SOCs, and some of the ones I've done some light consulting for.
@@ -84,7 +97,7 @@ While this won't remove your need to have experience or qualifications, it is a 
 
 People underestimate the human bond & relationship needed in the field. No one wants to work with someone who is constantly detached, robotic, unkind, or disinterested. When you truly have a love for the human connection **and** the work required of the job, you will succeed the most.
 
-# What certs should I get?
+# What certs should I get
 
 This comes up a lot, and while certs aren't the only distinguishing factor to your skillset, it's probably worth just going over a handful. And these aren't necessarily recommendations for everyone. Consider what you're most interested in and pursue those.
 
