@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <title>
+LAB Unit 42 March 2023 Quiz Walkthrough | Hugo Nightfall
+</title>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="generator" content="Hugo 0.115.4">
+
+
+<link rel="canonical" href="blog.cloudham.com/posts/lab-unit-42-march-2023-quiz-walkthrough/" >
+<link href="/blog.cloudham.com/sass/main.min.a8be33730f01e46b6e968a84ed6b211a9d1286d34f7e143c012da9c14cd56400.css" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+    <div class="flexWrapper">
+        <header class="headerWrapper">
+    <div class="header">
+        <div>
+            <a href="blog.cloudham.com">
+                <span class="terminal">Cloudham@https://github.com/Cloud-Ham/cloud-ham.github.io ~ $</span>
+            </a>
+        </div>
+        <input class="side-menu" type="checkbox" id="side-menu"/>
+        <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+        <nav class="headerLinks">
+            <ul>
+                
+                <li>
+                    <a href="blog.cloudham.com/about" title="" >
+                        ~/about</a>
+                </li>
+                
+                <li>
+                    <a href="blog.cloudham.com/blog" title="" >
+                        ~/blog</a>
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+        <div class="content">
+            <main class="main">
+                
+<div class="postWrapper">
+    <h1>LAB Unit 42 March 2023 Quiz Walkthrough</h1>
+    
+    <section class="postMetadata">
+        <dl>
+            
+            
+            
+            
+                <dt>published</dt>
+                
+                <dd><time datetime="2023-07-23">July 23, 2023</time></dd>
+            
+            
+        </dl>
+    </section>
+    
+    <div>
+        <h1 id="introduction">Introduction</h1>
+<p>In this blog post, I will be reviewing the Unit42 PCAP quiz. Palo Alto has provided the quiz, and some relevant IOC information at the following links:</p>
+<p><a href="https://unit42.paloaltonetworks.com/march-wireshark-gozi/">Link to the Unit42 Quiz overview</a></p>
+<p><a href="https://github.com/pan-unit42/tweets/blob/master/2023-03-06-IOCs-for-Gozi-infection.txt">Link to the IOC report they provide</a></p>
+<p>A rule of engagement, knowing answers are already available: I will not look at the answers until my analysis is complete. This blog post is mostly to highlight my own practice with this (Been a while since I&rsquo;ve had to do PCAP analysis)</p>
+<h1 id="finding-the-source">Finding the Source</h1>
+<p>Looking at the <a href="https://github.com/pan-unit42/tweets/blob/master/2023-03-06-IOCs-for-Gozi-infection.txt">Unit42 IOC Report</a>, the infection chain starts from an email, to a link, to a download.</p>
+<p>Although we could attempt to find email data in the pcap, unknowing to what the pcap may have saved on that aspect, it would make more sense to start with the link first. The main reason is that DNS requests aren&rsquo;t <em>typically</em> encrypted (Disregarding technologies like DNS over HTTPS for now)</p>
+<p>After opening the file with Wireshark, I ran through these steps to narrow down DNS activity:</p>
+<p><strong>Apply the first Display filter</strong></p>
+<pre tabindex="0"><code>dns
+</code></pre><p><strong>Find the flag for a successful query response, and tune the display filter</strong></p>
+<pre tabindex="0"><code>dns.flags == 0x8180
+</code></pre><p><strong>Tune the display filter to cut out some (potentially) legitimate noise</strong></p>
+<pre tabindex="0"><code>dns.flags == 0x8180 &amp;&amp; not(dns.qry.name contains &#34;microsoft&#34;) &amp;&amp; not(dns.qry.name contains &#34;google&#34;)
+</code></pre><p><strong>Set the URL as a Column in Wireshark</strong></p>
+<pre tabindex="0"><code>In Wireshark, click on one of the DNS packets. Right click on the &#34;Name: URL&#34; entry in one of them and click &#34;Apply as Column&#34;
+</code></pre><p>Be cautious with a filter that disallows important keywords from the display results. Although a lot of common domains are expected (gstatic, microsoft, bing, windowsupdate, etc.), being overly specific is rather cumbersome and being too vague may kick out the actual malicious action.</p>
+<p>So this is where we&rsquo;re currently at.</p>
+<p>{{ $image := resources.Get &ldquo;images/Unit42-Mar2023-PCAP-P1.png&rdquo; }}</p>
+<p>The initial domains of interest here are:</p>
+<ul>
+<li>unapromo[.]com</li>
+<li>x1.c.lencr[.]org</li>
+</ul>
+<p><a href="https://letsencrypt.org/docs/lencr.org/">Lencr.org is actually the domain for Let&rsquo;s Encrypt</a></p>
+<p>However the other site that stood out, unapromo, is flagged from:</p>
+<ul>
+<li><a href="https://www.virustotal.com/gui/domain/unapromo.com/detection">VirusTotal</a></li>
+<li><a href="https://urlscan.io/result/240924f2-ef0d-4ef7-a2d6-6a61d186d877/related/">URLScan.io Related behaviors</a></li>
+<li><a href="https://github.com/NethServer/dns-community-blacklist/blob/master/abuse_ch.dns">DNS Community blacklist</a></li>
+</ul>
+<p>Since the page is already down, URLScan doesn&rsquo;t show suspicious activity on the page itself. The related behaviors tab shows files downloaded from it and past activity. From here, we can investigate past actions and find out just how malicious the site really is. From any of the hits from the same domain with a file associated, click the file URL in URLScan (Don&rsquo;t visit the actual domain!) and grab the SHA256 hash for analysis.</p>
+<p>[Unit42-Mar2023-PCAP-P2.png]</p>
+<p>[Unit42-Mar2023-PCAP-P3.png]</p>
+<p>[Unit42-Mar2023-PCAP-P4.png]</p>
+<p>SHA256 for Cliente.zip: 33db5b2a2cc592fd10c65ba38396e4c7574ad78e786d78e8a3acdc93a90c3209<!-- raw HTML omitted -->
+<a href="https://urlscan.io/result/6f017575-c1f1-48ea-8a20-7c55f6021b8b/">Link for Urlscan Report of file</a><!-- raw HTML omitted -->
+<a href="https://www.virustotal.com/gui/file/33db5b2a2cc592fd10c65ba38396e4c7574ad78e786d78e8a3acdc93a90c3209/detection">Link for VirusTotal Report</a></p>
+<p>VirusTotal has the file flagged as &ldquo;ursnif&rdquo;, and that lines up with the IOC report from Unit42 (Line45 in IOC report)</p>
+<p>And although we haven&rsquo;t reviewed more of the PCAP yet to determine what IP our compromised system reached out to, we can save the IP address of unapromo for later: &ldquo;173.254.32.85&rdquo;. We should also grab the packet number of the DNS request because we&rsquo;ll continue reviewing the PCAP and it&rsquo;ll be easiest to reference to hop to the DNS request in the timeline.</p>
+<p>What we have so far:<!-- raw HTML omitted --></p>
+<ul>
+<li>The Host that made the DNS request has an internal IP address of &ldquo;172.16.1.137&rdquo;</li>
+<li>The URL of interest known with distributing ursnif malware used by Gozi is &ldquo;unapromo[.]com&rdquo;</li>
+<li>unapromo[.]com has resolved to &ldquo;173.254.32.85&rdquo; in the past</li>
+<li>The packet number in Wireshark for the DNS request is &ldquo;2339&rdquo;</li>
+<li>The suspicious initial file is most likely &ldquo;Cliente.zip&rdquo;</li>
+</ul>
+<h1 id="finding-our-malware">Finding our Malware</h1>
+<p>Back in Wireshark, let&rsquo;s clear the filters we have right now. And instead we&rsquo;re going to dig more into network traffic where the potentially compromised host (172.16.1.137) was involved.</p>
+<p><strong>Set the following Wireshark Filter</strong></p>
+<pre tabindex="0"><code>ip.src == 172.16.1.137
+</code></pre><p><strong>Hop the timeline to find the DNS request event</strong></p>
+<pre tabindex="0"><code>In Wireshark, click on &#34;Go&#34; on the top bar, and select &#34;Go To Packet&#34;. 
+Set the packet number to 2339 and click &#34;Go to packet&#34;
+</code></pre><p>If you look carefully, right after the DNS request is an immediate connection from our host, 172.16.1.137, to the IP address that was listed in the URLscan site in the above section, &ldquo;173.254.32.85&rdquo;. And then right after, you guessed it, the &ldquo;Cliente.zip&rdquo; file!</p>
+<p>[Unit42-Mar2023-PCAP-P5]</p>
+<p>We can do the following the extract out the file:</p>
+<pre tabindex="0"><code>In Wireshark, go to &#34;File &gt; Export Objects &gt; HTTP&#34;
+Choose the unapromo[.]com hostname with the filename &#34;Cliente.zip&#34;
+Choose &#34;Save&#34; and export to a location for analysis (Reminder: Make sure you&#39;re using a VM!
+</code></pre><p>[Unit42-Mar2023-PCAP-P6]</p>
+<p>Once we extract the contents, we&rsquo;ll see that this is an internet shortcut. Opening in Notepad++, we see the following contents:</p>
+<p>[Unit42-Mar2023-PCAP-P7]</p>
+<p>Now let&rsquo;s get some hashes. If we take the zip and the file and hash them with SHA-256, we&rsquo;ll see the zip with the same hash we saw earlier:</p>
+<p>Cliente.zip: 33DB5B2A2CC592FD10C65BA38396E4C7574AD78E786D78E8A3ACDC93A90C3209<!-- raw HTML omitted -->
+Cliente.url: 340A759B1C1CDC22F6FAC84044D072475E1630FBB7F47D96C4E18413DE34D570</p>
+<p>Ok, let&rsquo;s take some notes and do some quick reflection&hellip;</p>
+<ul>
+<li>Although the IP Address that the file was downloaded from was &ldquo;172.254.32.85&rdquo;, this internet shortcut gives us another malicious IP: &ldquo;46.8.19.32&rdquo;. This doesn&rsquo;t necessarily mean that this will be the target IP for ongoing C2 beacons or data exfil, just that this IP hosted at <em>least</em> the next stage.</li>
+<li>The Hash value we have for Cliente.zip matches what we found on URLScan.io</li>
+<li>Why did this download not trip any malware alerts? Well, it&rsquo;s an Internet Shortcut and there&rsquo;s a couple of issues. They don&rsquo;t really have distinct signatures outside of what might be a little strange (Such as the IconFile in this case). Hashing is ineffective as changing the filename in the URI would be enough to avoid hash-based detections. And if we run this through VirusTotal, it comes back as clean. This file is <em>directing us</em> to something malicious, but it isn&rsquo;t malicious in itself.</li>
+</ul>
+<p>Let&rsquo;s chat for a bit about what you might do as a SOC analyst so far.</p>
+<h1 id="the-soc-analyst-review">The SOC Analyst review</h1>
+<p>At this point in the investigation, the system must be quarantined if not already. The file landing on the system, the system&rsquo;s interactions with a known malicious domain, and the contents of the InternetShortcut should be enough for us to make the justification to quarantine for either further review, or reimaging.</p>
+<p>So what helps you decide whether you&rsquo;re going to review further or just submit for a rebuild/reimage? And keep in mind that this is not the &ldquo;definitive&rdquo; version as you must always consider your company&rsquo;s stance on these things, the technical details, and criticality of the system that was impacted.</p>
+<ul>
+<li>If you had a security product in the way that was actively stopping all effects of the attack after the system was compromised, you may be good to reimage. Maybe your system went all the way to executing the malicious code but luckily your EDR killed every process. Or your firewall let the attack in, but didn&rsquo;t allow it out. (I&rsquo;ve seen some strange policy assignments on Palo Altos from customers that put stricter requirements on out than in, and led to C2 beacons that could fire but not leave the network).</li>
+<li>If you freshly discovered this and have no proof that anything else could have stopped the attack, you will want to dig in deeper. Not only considering this host, but any others in your network who may be performing the same activity. Also look to collect more information if the system is particularly critical or holds sensitive data.</li>
+</ul>
+<p>Ok, now that we&rsquo;ve talked about what you might want to do as a SOC analyst, let&rsquo;s go back to the network!</p>
+<h1 id="the-smb-executable">The SMB Executable</h1>
+<p>Before the SOC Analyst review section, we talked about the new IP found in the InternetShortcut file that was downloaded: &ldquo;46.8.19.32&rdquo;. If we still have our Wireshark filter set as the ip.src == 176.16.1.137 and looking at the packet referenced earlier, we can really just scroll down a bit. After that InternetShortcut is downloaded, it&rsquo;s not likely very far off. Or we can adjust our Wireshark filter a bit to get a better look.</p>
+<pre tabindex="0"><code>ip.src == 172.16.1.137 or ip.src == 46.8.19.32
+</code></pre><p>We&rsquo;ll see at Packet #2492 the initial SYN from our compromised host to the new IP. After the TCP handshake is complete, a Server Message Block (SMB) handshake begins. This is an <em>immediately bad</em> scenario, as SMB should never be in use with unknown IPs. And now that we know SMB was in use, we could try using &ldquo;Export Objects&rdquo; in Wireshark again as well. (Truthfully, you could always start here, but a larger PCAP that isn&rsquo;t targeted for a scenario like this could be rather noisy, depending on protocol use).</p>
+<p>Except we have an issue. Not all of the executable&rsquo;s data was captured in the PCAP. Wireshark will display a percentage in the &ldquo;Content Type&rdquo; field that indicates how much of the file was captured. At best, we have 73% of the file and could be missing some critical details from it.</p>
+<p>[Unit42-Mar2023-PCAP-P9]</p>
+<p>So analyzing this file may not give us a conclusive answer to any questions we may have. But we can at least poke and prod at it to see what might be present. I exported this on my FlareVM, and proceeded to pop it open in PEstudio for the first look.</p>
+<p>[Unit42-Mar2023-PCAP-P10]</p>
+<p>The strings analysis is probably the most useful part without the rest of the file present. We have some Windows API calls that flag for suspicion. The long strings with byte size as 2552 and 2001 are interesting. I&rsquo;m no expert in decoding these things, but these were my notes and attempts:</p>
+<ul>
+<li>ROT13 brute force: Fail</li>
+<li>ROT47 brute force: Fail</li>
+<li>XOR Brute force: Fail</li>
+<li>Google translate: Fail</li>
+<li>Online text decoder (Do these even work?): Fail</li>
+</ul>
+<p>I have a good feeling that the strings with 94 bytes in size in here are defining the encoding alphabet, but unsure of how to proceed here.</p>
+<p>Let&rsquo;s refresh our current notes on the investigation with everything we found so far:</p>
+<ul>
+<li>The host that made the DNS request for unapromo[.]com has IP address &ldquo;172.16.1.137&rdquo;</li>
+<li>The URL of interest known with distributing ursnif malware used by Gozi is &ldquo;unapromo[.]com&rdquo;</li>
+<li>unapromo[.]com has resolved to &ldquo;173.254.32.85&rdquo; in the past</li>
+<li>The packet number of the initial DNS request to &ldquo;unapromo[.]com&rdquo; is 2339</li>
+<li>The Hash value for &ldquo;Cliente.zip&rdquo; matches what we found on URLScan.io</li>
+<li>The file downloaded from unapromo[.]com is &ldquo;Cliente.zip&rdquo;, which contains an InternetShortcut that directs to IP address &ldquo;46.8.19.32&rdquo;</li>
+<li>Our host &ldquo;172.16.1.137&rdquo; begins a TCP handshake at Packet #2492, and starts the SMB negotiation with &ldquo;46.8.19.32&rdquo; at Packet #2495</li>
+<li>The file sent in the SMB traffic is &ldquo;server.exe&rdquo;, but only 70% of the file was captured.</li>
+<li>From analysis of server.exe, we see suspicious strings for both Windows API calls and uninterpretable text that is most likely encoded</li>
+</ul>
+<p>We&rsquo;re almost to the end. We&rsquo;re going to next look at the Gozi noted activity after the compromise, and then look to finish answering the questions for this challenge.</p>
+<h1 id="gozi-post-compromise-actions">Gozi Post-Compromise Actions</h1>
+<p>Here, we&rsquo;re going to lean on <a href="https://github.com/pan-unit42/tweets/blob/master/2023-03-06-IOCs-for-Gozi-infection.txt">Unit42&rsquo;s IOC report</a> a little bit. The detail the type of activity seen pretty well here, and we&rsquo;re interested in the section &ldquo;GOZI (ISFB/URSNIF) C2&rdquo; starting on line 45, seeing as the SMB connection lead to the compromise.</p>
+<p>Unit42 notes that all of the observed C2 traffic activity occurred over Port 80 as a GET request. In Wireshark, we&rsquo;re going to update our filter a bit.</p>
+<pre tabindex="0"><code>ip.src == 172.16.1.137 &amp;&amp; http.request
+</code></pre><p>And honestly, this is enough. You&rsquo;ll see pretty quickly that this narrows the traffic down enough to see the C2 activity.</p>
+<p>[Unit42-Mar2023-PCAP-P11]</p>
+<p>And the network traffic lines up with the IOC report incredibly well. We have the same URI format of either &ldquo;drew/BASE64-encoded-text&rdquo; or &ldquo;stilak(Architechture).rar&rdquo; or &ldquo;cook(Architecture).rar&rdquo;</p>
+<p>Now we have a better understanding of the compromise and how bad it has gotten. We still don&rsquo;t really know what all was affected, or what could have been, but ultimately it&rsquo;s out of scope for this review. (We would probably need more than just PCAP data, and more than what&rsquo;s limited for the scenario, to paint the full picture)</p>
+<h1 id="finding-the-system">Finding the System</h1>
+<p>So we have our investigation pretty much wrapped up, except for knowing what the infected system is. If our DHCP is dynamic, and by chance the lease is renewed for a different IP by the time we investigate, we may not want to go by the internal IP address only.</p>
+<p>We need to discover the system and the user account, both that should appear in authentication traffic of some sort. Let&rsquo;s start with the user&rsquo;s authentication on the Active Directory domain and look at Kerberos.</p>
+<pre tabindex="0"><code>ip.src == 172.16.1.137 &amp;&amp; kerberos
+</code></pre><p>I won&rsquo;t lie, I very roughly understand Kerberos. But contacting the Authentication Service (AS) should result in some detail, and there I found the Hostname of the device: DESKTOP-3GJL3PV</p>
+<p>[Unit42-Mar2023-PCAP-P12]</p>
+<p>After finding this, I worked my way through the rest of the AS-REQ packets and eventually found the user account after several entries of the device.</p>
+<p>[Unit42-Mar2023-PCAP-P13]</p>
+<h1 id="review">Review</h1>
+<p>Wrapping up, we have our answers for the packet capture:</p>
+<p>Host device details:<!-- raw HTML omitted --></p>
+<ul>
+<li>172.16.1.137</li>
+<li>DESKTOP-3GJL3PV</li>
+<li>sherita.kolb</li>
+</ul>
+<p>Initial source of infection:<!-- raw HTML omitted --></p>
+<ul>
+<li>unapromo[.]com/mise/Cliente.zip</li>
+<li>SHA256: 33db5b2a2cc592fd10c65ba38396e4c7574ad78e786d78e8a3acdc93a90c3209</li>
+</ul>
+<p>Notable differences between indicators from this Gozi and the Unit 42 report?<!-- raw HTML omitted --></p>
+<ul>
+<li>The initial URL and zip file hash were different. Where we had &ldquo;unapromo[.]com&rdquo; and the hash ending in &ldquo;3209&rdquo;, we have neither of those indicators in the IOC report from Unit 42.</li>
+</ul>
+
+    </div>
+</div>
+
+            </main>
+        </div>
+
+
+        <footer class="footer">
+    
+        <span>
+            © 2023 Hugo Nightfall, Built with
+            <a href="https://gohugo.io" class="footerLink">Hugo</a> and
+            <a href="https://github.com/LordMathis/hugo-theme-nightfall" class="footerLink">Nightfall</a> theme
+        </span>
+    
+</footer>
+    </div>
+
+</body>
+
+</html>

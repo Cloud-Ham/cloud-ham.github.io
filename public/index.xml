@@ -6,7 +6,19 @@
     <description>Recent content on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 20 Jul 2023 17:13:05 +0000</lastBuildDate><atom:link href="blog.cloudham.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Jul 2023 18:20:15 +0000</lastBuildDate><atom:link href="blog.cloudham.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LAB Unit 42 March 2023 Quiz Walkthrough</title>
+      <link>blog.cloudham.com/posts/lab-unit-42-march-2023-quiz-walkthrough/</link>
+      <pubDate>Sun, 23 Jul 2023 18:20:15 +0000</pubDate>
+      
+      <guid>blog.cloudham.com/posts/lab-unit-42-march-2023-quiz-walkthrough/</guid>
+      <description>Introduction In this blog post, I will be reviewing the Unit42 PCAP quiz. Palo Alto has provided the quiz, and some relevant IOC information at the following links:
+Link to the Unit42 Quiz overview
+Link to the IOC report they provide
+A rule of engagement, knowing answers are already available: I will not look at the answers until my analysis is complete. This blog post is mostly to highlight my own practice with this (Been a while since I&amp;rsquo;ve had to do PCAP analysis)</description>
+    </item>
+    
     <item>
       <title>Competing for a Cybersecurity Role</title>
       <link>blog.cloudham.com/posts/competing-for-a-cybersecurity-role/</link>
