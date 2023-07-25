@@ -46,7 +46,7 @@ Be cautious with a filter that disallows important keywords from the display res
 
 So this is where we're currently at.
 
-{{ $image := resources.Get "images/Unit42-Mar2023-PCAP-P1.png" }}
+{{ $image := resources.Get "images/Unit42-Mar2023-PCAP/Unit42-Mar2023-PCAP-P1.png" }}
 
 The initial domains of interest here are:
 
