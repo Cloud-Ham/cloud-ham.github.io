@@ -64,11 +64,11 @@ However the other site that stood out, unapromo, is flagged from:
 
 Since the page is already down, URLScan doesn't show suspicious activity on the page itself. The related behaviors tab shows files downloaded from it and past activity. From here, we can investigate past actions and find out just how malicious the site really is. From any of the hits from the same domain with a file associated, click the file URL in URLScan (Don't visit the actual domain!) and grab the SHA256 hash for analysis.
 
-[Unit42-Mar2023-PCAP-P2.png]
+![Resize](https://blog.cloud-ham.com/posts/Unit42-Mar2023/Unit42-Mar2023-PCAP-P2.png?width=766px)
 
-[Unit42-Mar2023-PCAP-P3.png]
+![Resize](https://blog.cloud-ham.com/posts/Unit42-Mar2023/Unit42-Mar2023-PCAP-P3.png?width=766px)
 
-[Unit42-Mar2023-PCAP-P4.png]
+![Resize](https://blog.cloud-ham.com/posts/Unit42-Mar2023/Unit42-Mar2023-PCAP-P4.png?width=766px)
 
 SHA256 for Cliente.zip: 33db5b2a2cc592fd10c65ba38396e4c7574ad78e786d78e8a3acdc93a90c3209<br>
 [Link for Urlscan Report of file](https://urlscan.io/result/6f017575-c1f1-48ea-8a20-7c55f6021b8b/)<br>
@@ -102,7 +102,7 @@ Set the packet number to 2339 and click "Go to packet"
 
 If you look carefully, right after the DNS request is an immediate connection from our host, 172.16.1.137, to the IP address that was listed in the URLscan site in the above section, "173.254.32.85". And then right after, you guessed it, the "Cliente.zip" file!
 
-[Unit42-Mar2023-PCAP-P5]
+![Resize](https://blog.cloud-ham.com/posts/Unit42-Mar2023/Unit42-Mar2023-PCAP-P5.png?width=766px)
 
 We can do the following the extract out the file:
 
@@ -112,11 +112,11 @@ Choose the unapromo[.]com hostname with the filename "Cliente.zip"
 Choose "Save" and export to a location for analysis (Reminder: Make sure you're using a VM!
 ```
 
-[Unit42-Mar2023-PCAP-P6]
+![Resize](https://blog.cloud-ham.com/posts/Unit42-Mar2023/Unit42-Mar2023-PCAP-P6.png?width=766px)
 
 Once we extract the contents, we'll see that this is an internet shortcut. Opening in Notepad++, we see the following contents:
 
-[Unit42-Mar2023-PCAP-P7]
+![Resize](https://blog.cloud-ham.com/posts/Unit42-Mar2023/Unit42-Mar2023-PCAP-P7.png?width=766px)
 
 Now let's get some hashes. If we take the zip and the file and hash them with SHA-256, we'll see the zip with the same hash we saw earlier:
 
@@ -152,13 +152,15 @@ ip.src == 172.16.1.137 or ip.src == 46.8.19.32
 
 We'll see at Packet #2492 the initial SYN from our compromised host to the new IP. After the TCP handshake is complete, a Server Message Block (SMB) handshake begins. This is an *immediately bad* scenario, as SMB should never be in use with unknown IPs. And now that we know SMB was in use, we could try using "Export Objects" in Wireshark again as well. (Truthfully, you could always start here, but a larger PCAP that isn't targeted for a scenario like this could be rather noisy, depending on protocol use).
 
+![Resize](https://blog.cloud-ham.com/posts/Unit42-Mar2023/Unit42-Mar2023-PCAP-P8.png?width=766px)
+
 Except we have an issue. Not all of the executable's data was captured in the PCAP. Wireshark will display a percentage in the "Content Type" field that indicates how much of the file was captured. At best, we have 73% of the file and could be missing some critical details from it.
 
-[Unit42-Mar2023-PCAP-P9]
+![Resize](https://blog.cloud-ham.com/posts/Unit42-Mar2023/Unit42-Mar2023-PCAP-P9.png?width=766px)
 
 So analyzing this file may not give us a conclusive answer to any questions we may have. But we can at least poke and prod at it to see what might be present. I exported this on my FlareVM, and proceeded to pop it open in PEstudio for the first look.
 
-[Unit42-Mar2023-PCAP-P10]
+![Resize](https://blog.cloud-ham.com/posts/Unit42-Mar2023/Unit42-Mar2023-PCAP-P10.png?width=766px)
 
 The strings analysis is probably the most useful part without the rest of the file present. We have some Windows API calls that flag for suspicion. The long strings with byte size as 2552 and 2001 are interesting. I'm no expert in decoding these things, but these were my notes and attempts:
 
@@ -196,7 +198,7 @@ ip.src == 172.16.1.137 && http.request
 
 And honestly, this is enough. You'll see pretty quickly that this narrows the traffic down enough to see the C2 activity. 
 
-[Unit42-Mar2023-PCAP-P11]
+![Resize](https://blog.cloud-ham.com/posts/Unit42-Mar2023/Unit42-Mar2023-PCAP-P11.png?width=766px)
 
 And the network traffic lines up with the IOC report incredibly well. We have the same URI format of either "drew/BASE64-encoded-text" or "stilak(Architechture).rar" or "cook(Architecture).rar"
 
@@ -213,11 +215,11 @@ ip.src == 172.16.1.137 && kerberos
 ```
 I won't lie, I very roughly understand Kerberos. But contacting the Authentication Service (AS) should result in some detail, and there I found the Hostname of the device: DESKTOP-3GJL3PV
 
-[Unit42-Mar2023-PCAP-P12]
+![Resize](https://blog.cloud-ham.com/posts/Unit42-Mar2023/Unit42-Mar2023-PCAP-P12.png?width=766px)
 
 After finding this, I worked my way through the rest of the AS-REQ packets and eventually found the user account after several entries of the device.
 
-[Unit42-Mar2023-PCAP-P13]
+![Resize](https://blog.cloud-ham.com/posts/Unit42-Mar2023/Unit42-Mar2023-PCAP-P13.png?width=766px)
 
 # Review
 
