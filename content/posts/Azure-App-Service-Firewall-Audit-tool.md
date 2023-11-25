@@ -42,9 +42,9 @@ There are two tabs: Main Site, and Advanced Tool Site (SCM site). From the "Adva
 * Inherit the Main Site's rules. This works well if the entire App Service is supposed to be private and the existing firewall rules on the Main Site are sufficient to restrict access outside of the organization's network.
 * Disable Public Access for the entire application, affects both Main Site and Advanced tool site.
 
-__IMPORTANT__: If the Advanced tool site (SCM site) is inheriting the Main Site's rules, you will NOT see the Main Site's rules from within the Advanced Tool Site's rules.
+__IMPORTANT__: If the Advanced tool site (SCM site) is inheriting the Main Site's rules, you will NOT see the Main Site's rules from within the Advanced Tool Site's rules in the portal.
 
-The following is an example of the SCM firewall where Main Site rules are being inherited. Although it shows an "Allow All", the rules actually taking effect are in the 2nd screenshot.
+The following is an example of the SCM firewall where Main Site rules are being inherited.
 
 ![Resize](https://blog.cloud-ham.com/posts/appservfw-audit/kudufirewall.png?width=766px)
 
